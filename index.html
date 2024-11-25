@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Acta</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Si tienes CSS -->
+</head>
+<body>
+
+    <h1>Formulario de Acta</h1>
+
+    <!-- Tipo de Acta -->
+    <label for="actaType">Tipo de Acta:</label>
+    <select id="actaType">
+        <option value="actaEntrega">Acta de Entrega de Activo</option>
+        <option value="actaDevolucion">Acta de Devolución de Activo</option>
+    </select>
+
+    <br><br>
+
+    <!-- Tipo de Activo -->
+    <label for="activoType">Tipo de Activo:</label>
+    <select id="activoType">
+        <option value="computadora">Computadora</option>
+        <option value="monitor">Monitor</option>
+        <option value="adaptador">Adaptador</option>
+        <option value="mouse">Mouse</option>
+        <option value="audifonos">Audífonos</option>
+    </select>
+
+    <br><br>
+
+    <!-- Cantidad de Monitores -->
+    <label for="monitorCount">Cantidad de Monitores:</label>
+    <select id="monitorCount">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+
+    <br><br>
+
+    <!-- Contenedor para los campos dinámicos -->
+    <div id="additionalFields"></div>
+
+    <br><br>
+
+    <!-- Botón para generar el documento -->
+    <button onclick="generateDocument()">Generar Documento</button>
+
+    <!-- Vinculando el archivo JS -->
+    <script src="formScript.js"></script>
+
+</body>
+</html>
