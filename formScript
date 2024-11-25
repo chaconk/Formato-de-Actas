@@ -1,0 +1,154 @@
+document.addEventListener('DOMContentLoaded', function () {
+    // Llama a esta función cuando se seleccione el número de monitores
+    document.getElementById('monitorCount').addEventListener('change', adjustMonitorFields);
+    document.getElementById('activoType').addEventListener('change', adjustActaType);
+    document.getElementById('actaType').addEventListener('change', adjustActaType);
+});
+
+function adjustMonitorFields() {
+    const monitorCount = parseInt(document.getElementById('monitorCount').value, 10);
+    const additionalFields = document.getElementById('additionalFields');
+    
+    // Limpiar campos adicionales antes de agregar nuevos
+    additionalFields.innerHTML = ""; 
+
+    for (let i = 1; i <= monitorCount; i++) {
+        additionalFields.innerHTML += `
+            <h3>Monitor ${i}</h3>
+            <div class="form-group">
+                <label for="monitor${i}ProviderCode">Código de Proveedor:</label>
+                <input type="text" id="monitor${i}ProviderCode" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="monitor${i}Brand">Marca:</label>
+                <input type="text" id="monitor${i}Brand" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="monitor${i}Model">Modelo:</label>
+                <input type="text" id="monitor${i}Model" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="monitor${i}Serial">Serie:</label>
+                <input type="text" id="monitor${i}Serial" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="monitor${i}Observations">Observaciones:</label>
+                <textarea id="monitor${i}Observations" rows="3" placeholder="Observaciones del monitor"></textarea>
+            </div>
+        `;
+    }
+
+    // Si se selecciona más de 1 monitor, añadir el campo del adaptador
+    if (monitorCount > 1) {
+        additionalFields.innerHTML += `
+            <h3>Adaptador</h3>
+            <div class="form-group">
+                <label for="adapterProviderCode">Código de Proveedor:</label>
+                <input type="text" id="adapterProviderCode" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="adapterBrand">Marca:</label>
+                <input type="text" id="adapterBrand" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="adapterModel">Modelo:</label>
+                <input type="text" id="adapterModel" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="adapterSerial">Serie:</label>
+                <input type="text" id="adapterSerial" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="adapterObservations">Observaciones:</label>
+                <textarea id="adapterObservations" rows="3" placeholder="Observaciones del adaptador"></textarea>
+            </div>
+        `;
+    }
+}
+
+// Ajusta la sección según el tipo de acta seleccionado
+function adjustActaType() {
+    const actaType = document.getElementById('actaType').value;
+    const additionalFields = document.getElementById('additionalFields');
+
+    // Limpiar contenido adicional antes de agregar nuevos campos
+    additionalFields.innerHTML = ""; 
+
+    if (actaType === 'actaDevolucion') {
+        // Agregar campos adicionales si es Acta de Devolución
+        additionalFields.innerHTML += `
+            <label for="devolucionType">Devolución por:</label>
+            <select id="devolucionType">
+                <option value="reemplazo">Devolución por Reemplazo</option>
+                <option value="terminacion">Devolución por Terminación</option>
+            </select>
+
+            <br><br>
+
+            <div id="detallesActivoDevolver"></div>
+        `;
+        document.getElementById('devolucionType').addEventListener('change', adjustDevolucionType);
+    }
+}
+
+// Ajusta la sección de detalles del activo dependiendo del tipo de devolución
+function adjustDevolucionType() {
+    const devolucionType = document.getElementById('devolucionType').value;
+    const detallesActivoDevolver = document.getElementById('detallesActivoDevolver');
+
+    // Limpiar contenido de "Detalles del Activo a Devolver"
+    detallesActivoDevolver.innerHTML = ""; 
+
+    if (devolucionType === 'reemplazo') {
+        detallesActivoDevolver.innerHTML += `
+            <h3>Detalles del Activo a Asignar</h3>
+            <div class="form-group">
+                <label for="activoAsignarProviderCode">Código de Proveedor:</label>
+                <input type="text" id="activoAsignarProviderCode" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoAsignarBrand">Marca:</label>
+                <input type="text" id="activoAsignarBrand" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoAsignarModel">Modelo:</label>
+                <input type="text" id="activoAsignarModel" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoAsignarSerial">Serie:</label>
+                <input type="text" id="activoAsignarSerial" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoAsignarObservations">Observaciones:</label>
+                <textarea id="activoAsignarObservations" rows="3" placeholder="Observaciones del activo a asignar"></textarea>
+            </div>
+
+            <h3>Detalles del Activo a Devolver</h3>
+            <div class="form-group">
+                <label for="activoDevolverProviderCode">Código de Proveedor:</label>
+                <input type="text" id="activoDevolverProviderCode" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoDevolverBrand">Marca:</label>
+                <input type="text" id="activoDevolverBrand" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoDevolverModel">Modelo:</label>
+                <input type="text" id="activoDevolverModel" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoDevolverSerial">Serie:</label>
+                <input type="text" id="activoDevolverSerial" placeholder="#N/A">
+            </div>
+            <div class="form-group">
+                <label for="activoDevolverObservations">Observaciones:</label>
+                <textarea id="activoDevolverObservations" rows="3" placeholder="Observaciones del activo a devolver"></textarea>
+            </div>
+        `;
+    }
+}
+
+function generateDocument() {
+    // Lógica para generar el documento del acta (esto depende de cómo quieras hacerlo).
+    alert('Generando documento...');
+}
